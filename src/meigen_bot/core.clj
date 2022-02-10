@@ -12,8 +12,11 @@
     (str content "\n\n" author)))
 
 (defn tweet-random []
-  (let [status (make-status (pick-random))]
-    (private/update-status status)))
+  (let [data   (pick-random)
+        status (make-status data)]
+    (try
+      (private/update-status status)
+      (catch Exception e (println "Tweet Failed." (.getMessage e))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
