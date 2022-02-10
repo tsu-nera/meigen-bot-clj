@@ -23,7 +23,7 @@
   (println "Started up Twitter Bot.")
   (chime/chime-at (chime/periodic-seq
                    (Instant/now)
-                   (Duration/ofHourss 1))
+                   (Duration/ofHours 1))
                   (fn [time]
                     (println "tweet at " time)
                     (tweet-random))))
