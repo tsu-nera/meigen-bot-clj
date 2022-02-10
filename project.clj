@@ -6,5 +6,7 @@
   :dependencies [[org.clojure/clojure "1.10.3"]
                  [environ "1.2.0"]
                  [cheshire "5.10.2"]
-                 [clj-http "3.12.3"]]
+                 [clj-http "3.12.3"]
+                 [jarohen/chime "0.3.3"]]
+  :main meigen-bot.core
   :repl-options {:init-ns meigen-bot.core})

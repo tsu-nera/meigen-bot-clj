@@ -1,9 +1,10 @@
 (ns meigen-bot.core
+  (:import (java.time Instant Duration))
   (:require
    ;; [meigen-bot.twitter.guest-client :as guest]
    [meigen-bot.twitter.private-client :as private]
    [meigen-bot.meigen :refer [meigens]]
-   ))
+   [chime.core :as chime]))
 
 (defn pick-random [] (rand-nth meigens))
 
@@ -18,7 +19,17 @@
       (private/update-status status)
       (catch Exception e (println "Tweet Failed." (.getMessage e))))))
 
+(defn -main [& args]
+  (println "Started up Twitter Bot.")
+  (chime/chime-at (chime/periodic-seq
+                   (Instant/now)
+                   (Duration/ofHourss 1))
+                  (fn [time]
+                    (println "tweet at " time)
+                    (tweet-random))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 ;; (def status (str (:content data) "\n\n" (:author data)))
 ;; (def status (make-status))
