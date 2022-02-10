@@ -8,7 +8,7 @@
 
 (def proxy-info (if (env :proxy-host)
                   {:proxy-host (env :proxy-host)
-                   :proxy-port (env :proxy-port)
+                   :proxy-port (Integer/parseInt (env :proxy-port))
                    :proxy-user (env :proxy-user)
                    :proxy-pass (env :proxy-pass)}
                   {}))
@@ -42,12 +42,12 @@
 (defn update-status [status]
   (let [url      "https://twitter.com/i/api/1.1/statuses/update.json"
         data     {:form-params {:status status}}
-        response (client/post url (merge data private-headers proxy-info))]
+        params   (merge data private-headers proxy-info)
+        response (client/post url params)]
     (-> response
         :body
         (json/parse-string true))))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (def status (get-status "1477034578875277316"))
-;; (def response (update-status "test4"))
+;; (def response (update-status "test5"))
