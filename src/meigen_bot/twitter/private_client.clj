@@ -5,6 +5,14 @@
 
 (def auth-token (env :auth-token))
 (def ct0 (env :ct0))
+
+(def proxy-info (if (env :proxy-host)
+                  {:proxy-host (env :proxy-host)
+                   :proxy-port (env :proxy-port)
+                   :proxy-user (env :proxy-user)
+                   :proxy-pass (env :proxy-pass)}
+                  {}))
+
 (def guest-bearer-token
   "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA")
 (def user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:94.0) Gecko/20100101 Firefox/94.0")
@@ -34,12 +42,12 @@
 (defn update-status [status]
   (let [url      "https://twitter.com/i/api/1.1/statuses/update.json"
         data     {:form-params {:status status}}
-        response (client/post url (merge data private-headers))]
+        response (client/post url (merge data private-headers proxy-info))]
     (-> response
         :body
         (json/parse-string true))))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (def status (get-status "1477034578875277316"))
-;; status
-;; (def response (update-status "test3"))
+;; (def response (update-status "test4"))
