@@ -12,5 +12,4 @@
   :main meigen-bot.core
   :repl-options {:init-ns meigen-bot.core}
   :min-lein-version "2.0.0"​
-  :profiles {:uberjar {:aot :all}}
   )
