@@ -21,5 +21,6 @@
       (log/debug (str content " - " author))
       (catch Exception e (log/error "post tweet Failed." (.getMessage e))))))
 
-(defn -main []
-  (tweet-random))
+(defn -main [& args]
+  (tweet-random)
+  0)
