@@ -24,11 +24,14 @@
                        :x-csrf-token  ct0
                        :cookie        cookie}})
 
+(def options {:decode-cookies false :cookie-policy :none})
+
 (defn get-statuses [status-id]
   (let [url (str "https://api.twitter.com/2/timeline/conversation/"
                  status-id
                  ".json?include_reply_count=1&send_error_codes=true&count=20")]
     (client/get url private-headers)))
+
 
 (defn get-status [status-id]
   (let [response (get-statuses status-id)]
@@ -42,7 +45,7 @@
 (defn update-status [status]
   (let [url      "https://twitter.com/i/api/1.1/statuses/update.json"
         data     {:form-params {:status status}}
-        params   (merge data private-headers proxy-info)
+        params   (merge data private-headers proxy-info options)
         response (client/post url params)]
     (-> response
         :body
