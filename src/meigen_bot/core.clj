@@ -23,25 +23,21 @@
       (log/debug (str content " - " author))
       (catch Exception e (log/error "post tweet Failed." (.getMessage e))))))
 
-(log/merge-config!
- {:timestamp-opts {:pattern  "yyyy-MM-dd HH:mm:ss,SSS"
-                   :locale   (java.util.Locale. "ja_JP")
-                   :tiemzone (java.util.TimeZone/getTimeZone "Asia/Tokyo")}})
+(def timbre-config {:timestamp-opts {:pattern  "yyyy-MM-dd HH:mm:ss,SSS"
+                                     :locale   (java.util.Locale. "ja_JP")
+                                     :tiemzone (java.util.TimeZone/getTimeZone "Asia/Tokyo")}})
 
 (defn -main [& args]
+  (log/merge-config! timbre-config)
   (log/info "Started up Twitter Bot.")
   (chime/chime-at (chime/periodic-seq
                    (Instant/now)
                    ;; (Duration/ofHours 3)
-                   (Duration/ofMinutes 3)
-                   )
+                   (Duration/ofMinutes 3))
                   (fn [_]
                     (tweet-random))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (def status (str (:content data) "\n\n" (:author data)))
-;; (def status (make-status))
 
 ;; (def status (make-status (pick-random)))
 ;; (def response (private/update-status status))
