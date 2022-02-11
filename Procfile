@@ -1,1 +1,1 @@
-worker: lein run
+worker: lein trampoline run
