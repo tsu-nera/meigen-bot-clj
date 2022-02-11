@@ -1,5 +1,5 @@
 {
- :auth_token ""
+ :auth-token ""
  :ct0        ""
  :proxy-host ""
  :proxy-port ""
