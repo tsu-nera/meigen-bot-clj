@@ -1,1 +1,1 @@
-worker: lein trampoline run -m meigen-bot.runner
+worker: lein trampoline run -m meigen-bot.heroku
