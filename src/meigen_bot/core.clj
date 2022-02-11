@@ -31,7 +31,7 @@
   (log/merge-config! timbre-config)
   (log/info "Started up Twitter Bot.")
   (chime/chime-at (chime/periodic-seq
-                   ;; (Instant/now)
+                   (Instant/now)
                    (Duration/ofHours 1)
                    ;;(Duration/ofMinutes 3)
                    )
